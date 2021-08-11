@@ -16,12 +16,10 @@ export class TodoStateFull extends React.Component {
 
   handleClick = () => {
     this.setState({
-      ...this.state,
       todos: this.state.todos.concat([this.state.value]),
       value: '',
     });
     this.state.todos.map(console.log)
-    console.log(this.state)
   }
 
   render = () => {
