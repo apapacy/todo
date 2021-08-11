@@ -19,7 +19,6 @@ export class TodoStateFull extends React.Component {
       todos: this.state.todos.concat([this.state.value]),
       value: '',
     });
-    this.state.todos.map(console.log)
   }
 
   render = () => {
