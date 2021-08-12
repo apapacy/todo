@@ -38,4 +38,4 @@ const TodoList = ({ todos }) => <ul>
     }
   </ul>;
 const Input = ({ value, handleChange }) => <input type="text" onChange={handleChange} value={value}/>;
-const Button = ({ handleClick }) => <button onClick={handleClick}>test</button>;
+const Button = ({ handleClick }) => <button onClick={handleClick}>add</button>;

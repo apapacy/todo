@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { addTodo, completeTodo, deleteTodo, setFilter } from '../redux/actions'
 
-const TodoWithProps = ({todos, addTodo, title}) => {
+const TodoWithProps = ({todos, addTodo, deleteTodo, title}) => {
   const [state, changeState] = useState({
     value: ''
   });
@@ -20,7 +20,7 @@ const TodoWithProps = ({todos, addTodo, title}) => {
   return (
     <>
       <Title title={title}/>
-      <TodoList todos={todos}/>
+      <TodoList todos={todos} deleteTodo={deleteTodo}/>
       <Input handleChange={handleChange} value={state.value}/>
       <Button handleClick={handleClick}/>
     </>
@@ -28,13 +28,13 @@ const TodoWithProps = ({todos, addTodo, title}) => {
 }
 
 const Title = ({ title }) => <h3>{ title }</h3>;
-const TodoList = ({ todos }) => <ul>
+const TodoList = ({ todos, deleteTodo }) => <ul>
     {
-      todos.map(todo => <li key={todo.title}>{todo.title}</li>)
+      todos.map((todo, index) => <li key={todo.title}>{todo.title}<button onClick={() => deleteTodo(index)}>delete</button></li>)
     }
   </ul>;
 const Input = ({ value, handleChange }) => <input type="text" onChange={handleChange} value={value}/>;
-const Button = ({ handleClick }) => <button onClick={handleClick}>test</button>;
+const Button = ({ handleClick }) => <button onClick={handleClick}>add</button>;
 
 function mapStateToProps(state) {
   return {
@@ -45,6 +45,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     addTodo: (...params) => dispatch(addTodo(...params)),
+    deleteTodo: (...params) => dispatch(deleteTodo(...params))
   };
 }
 

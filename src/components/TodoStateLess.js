@@ -30,7 +30,7 @@ export const TodoStateLess = () => {
         }
       </ul>
       <input type="text" onChange={handleChange} value={state.value}/>
-      <button onClick={handleClick}>test</button>
+      <button onClick={handleClick}>add</button>
     </>
   );
 }

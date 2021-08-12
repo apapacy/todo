@@ -31,7 +31,7 @@ export class TodoStateFull extends React.Component {
           }
         </ul>
         <input type="text" onChange={this.handleChange} value={this.state.value}/>
-        <button onClick={this.handleClick}>test</button>
+        <button onClick={this.handleClick}>add</button>
       </>
     );
   }
