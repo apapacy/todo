@@ -17,7 +17,7 @@ export const TodoStateLess = () => {
   const handleClick = () => {
     changeState({
       ...state,
-      todos: state.todos.concat([state.value]),
+      todos: state.todos.concat(state.value),
       value: '',
     });
   }

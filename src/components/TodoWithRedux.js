@@ -14,7 +14,7 @@ const TodoWithProps = ({todos, addTodo, deleteTodo, title}) => {
     });
   }
 
-  const handleClick = () => {
+  const handleAddTodo = () => {
     addTodo(state.value);
   }
   return (
@@ -22,19 +22,19 @@ const TodoWithProps = ({todos, addTodo, deleteTodo, title}) => {
       <Title title={title}/>
       <TodoList todos={todos} deleteTodo={deleteTodo}/>
       <Input handleChange={handleChange} value={state.value}/>
-      <Button handleClick={handleClick}/>
+      <Button addTodo={handleAddTodo}/>
     </>
   );
 }
 
 const Title = ({ title }) => <h3>{ title }</h3>;
-const TodoList = ({ todos, deleteTodo }) => <ul>
+const TodoList = ({ todos, deleteTodo }) => {console.log('component'); return <ul>
     {
-      todos.map((todo, index) => <li key={todo.title}>{todo.title}<button onClick={() => deleteTodo(index)}>delete</button></li>)
+      todos.map((todo, index) => {console.log('li');return <li key={index}>{todo.title}<button onClick={() => deleteTodo(index)}>delete</button></li>})
     }
-  </ul>;
+  </ul>};
 const Input = ({ value, handleChange }) => <input type="text" onChange={handleChange} value={value}/>;
-const Button = ({ handleClick }) => <button onClick={handleClick}>add</button>;
+const Button = ({ addTodo }) => <button onClick={addTodo}>add</button>;
 
 function mapStateToProps(state) {
   return {

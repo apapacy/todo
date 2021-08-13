@@ -16,7 +16,7 @@ export class TodoStateFull extends React.Component {
 
   handleClick = () => {
     this.setState({
-      todos: this.state.todos.concat([this.state.value]),
+      todos: this.state.todos.concat(this.state.value),
       value: '',
     });
   }
