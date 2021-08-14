@@ -7,35 +7,45 @@ export const TodoWithProps = () => {
     value: ''
   });
 
-  const handleChange = (event) => {
+  const changeValue = (value) => {
     changeState({
       ...state,
-      value: event.target.value
+      value
     });
   }
 
-  const handleClick = () => {
+  const addTodo = () => {
     changeState({
       ...state,
       todos: state.todos.concat(state.value),
       value: '',
     });
   }
+
   return (
     <>
       <Title title={state.title}/>
       <TodoList todos={state.todos}/>
-      <Input handleChange={handleChange} value={state.value}/>
-      <Button handleClick={handleClick}/>
+      <Input changeValue={changeValue} value={state.value}/>
+      <Button addTodo={addTodo}/>
     </>
   );
 }
 
 const Title = ({ title }) => <h3>{ title }</h3>;
-const TodoList = ({ todos }) => <ul>
+
+const TodoList = ({ todos }) =>
+  <ul>
     {
       todos.map(todo => <li key={todo}>{todo}</li>)
     }
   </ul>;
-const Input = ({ value, handleChange }) => <input type="text" onChange={handleChange} value={value}/>;
-const Button = ({ handleClick }) => <button onClick={handleClick}>add</button>;
+
+const Input = ({ value, changeValue }) => {
+  const handleChange = (event) => {
+    changeValue(event.target.value);
+  };
+  return <input type="text" onChange={handleChange} value={value}/>;
+};
+
+const Button = ({ addTodo }) => <button onClick={addTodo}>add</button>;
