@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { addTodo, completeTodo, deleteTodo, setFilter } from '../redux/actions'
+import { addTodo, completeTodo, deleteTodo } from '../actions/todo';
+import { setFilter } from '../actions/filter';
 
 const TodoWithProps = ({todos, addTodo, deleteTodo, title}) => {
   const [state, changeState] = useState({
