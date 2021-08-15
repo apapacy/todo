@@ -3,19 +3,19 @@ import { connect } from 'react-redux';
 import { addTodo, completeTodo, deleteTodo } from '../actions/todo';
 import { setFilter } from '../actions/filter';
 
-const TodoWithProps = ({todos, addTodo, deleteTodo, title}) => {
+const TodoWithProps = ({todo, addTodo, deleteTodo, title}) => {
   const [state, changeState] = useState({
     value: ''
   });
 
-  const changeValue = (value) => {
+  function changeValue(value) {
     changeState({
       ...state,
       value,
     });
   }
 
-  const handleAddTodo = () => {
+  function handleAddTodo() {
     addTodo(state.value);
     changeValue('');
   }
@@ -23,7 +23,7 @@ const TodoWithProps = ({todos, addTodo, deleteTodo, title}) => {
   return (
     <>
       <Title title={title}/>
-      <TodoList todos={todos} deleteTodo={deleteTodo}/>
+      <TodoList todo={todo} deleteTodo={deleteTodo}/>
       <Input changeValue={changeValue} value={state.value}/>
       <Button addTodo={handleAddTodo}/>
     </>
@@ -32,10 +32,10 @@ const TodoWithProps = ({todos, addTodo, deleteTodo, title}) => {
 
 const Title = ({ title }) => <h3>{ title }</h3>;
 
-const TodoList = ({ todos, deleteTodo }) => 
+const TodoList = ({ todo, deleteTodo }) => 
   <ul>
     {
-      todos.map((todo, index) => <li key={index}>{todo.title}<button onClick={() => deleteTodo(index)}>delete</button></li>)
+      todo.map((task, index) => <li key={index}>{task.title}<button onClick={() => deleteTodo(index)}>delete</button></li>)
     }
   </ul>;
 
@@ -50,7 +50,7 @@ const Button = ({ addTodo }) => <button onClick={addTodo}>add</button>;
 
 function mapStateToProps(state) {
   return {
-    todos: state.todos,
+    todo: state.todo,
   };
 }
 
