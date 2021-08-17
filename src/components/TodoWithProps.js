@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 export const TodoWithProps = () => {
   const [state, changeState] = useState({
     title: 'To Do List',
-    todos: [],
+    todo: [],
     value: ''
   });
 
@@ -17,7 +17,7 @@ export const TodoWithProps = () => {
   const addTodo = () => {
     changeState({
       ...state,
-      todos: state.todos.concat(state.value),
+      todo: state.todo.concat(state.value),
       value: '',
     });
   }
@@ -25,7 +25,7 @@ export const TodoWithProps = () => {
   return (
     <>
       <Title title={state.title}/>
-      <TodoList todos={state.todos}/>
+      <TodoList todo={state.todo}/>
       <Input changeValue={changeValue} value={state.value}/>
       <Button addTodo={addTodo}/>
     </>
@@ -34,10 +34,10 @@ export const TodoWithProps = () => {
 
 const Title = ({ title }) => <h3>{ title }</h3>;
 
-const TodoList = ({ todos }) =>
+const TodoList = ({ todo }) =>
   <ul>
     {
-      todos.map(todo => <li key={todo}>{todo}</li>)
+      todo.map(task => <li key={task}>{task}</li>)
     }
   </ul>;
 

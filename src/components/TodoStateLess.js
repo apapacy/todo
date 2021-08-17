@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 export const TodoStateLess = () => {
   const [state, changeState] = useState({
     title: 'To Do List',
-    todos: [],
+    todo: [],
     value: ''
   });
 
@@ -17,16 +17,17 @@ export const TodoStateLess = () => {
   const handleClick = () => {
     changeState({
       ...state,
-      todos: state.todos.concat(state.value),
+      todo: state.todo.concat(state.value),
       value: '',
     });
   }
+
   return (
     <>
       <h3>{state.title}</h3>
       <ul>
         {
-          state.todos.map(todo => <li key={todo}>{todo}</li>)
+          state.todo.map(task => <li key={task}>{task}</li>)
         }
       </ul>
       <input type="text" onChange={handleChange} value={state.value}/>

@@ -5,7 +5,7 @@ export class TodoStateFull extends React.Component {
     super(props);
     this.state = {
       title: 'To Do List',
-      todos: [],
+      todo: [],
       value: ''
     };
   }
@@ -16,7 +16,7 @@ export class TodoStateFull extends React.Component {
 
   handleClick = () => {
     this.setState({
-      todos: this.state.todos.concat(this.state.value),
+      todo: this.state.todo.concat(this.state.value),
       value: '',
     });
   }
@@ -27,7 +27,7 @@ export class TodoStateFull extends React.Component {
         <h3>{this.state.title}</h3>
         <ul>
           {
-            this.state.todos.map(todo => <li key={todo}>{todo}</li>)
+            this.state.todo.map(task => <li key={task}>{task}</li>)
           }
         </ul>
         <input type="text" onChange={this.handleChange} value={this.state.value}/>
