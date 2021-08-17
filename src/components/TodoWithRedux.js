@@ -3,28 +3,19 @@ import { connect } from 'react-redux';
 import { addTodo, completeTodo, deleteTodo } from '../actions/todo';
 import { setFilter } from '../actions/filter';
 
-const TodoWithProps = ({todo, addTodo, deleteTodo, title}) => {
-  const [state, changeState] = useState({
-    value: ''
-  });
-
-  function changeValue(value) {
-    changeState({
-      ...state,
-      value,
-    });
-  }
+const TodoWithProps = ({todo, addTodo, deleteTodo, completeTodo, title}) => {
+  const [value, changeValue] = useState('');
 
   function handleAddTodo() {
-    addTodo(state.value);
+    addTodo(value);
     changeValue('');
   }
 
   return (
     <>
       <Title title={title}/>
-      <TodoList todo={todo} deleteTodo={deleteTodo}/>
-      <Input changeValue={changeValue} value={state.value}/>
+      <TodoList todo={todo} deleteTodo={deleteTodo} completeTodo={completeTodo}/>
+      <Input changeValue={changeValue} value={value}/>
       <Button addTodo={handleAddTodo}/>
     </>
   );
@@ -32,10 +23,15 @@ const TodoWithProps = ({todo, addTodo, deleteTodo, title}) => {
 
 const Title = ({ title }) => <h3>{ title }</h3>;
 
-const TodoList = ({ todo, deleteTodo }) => 
+const TodoList = ({ todo, deleteTodo, completeTodo }) =>
   <ul>
     {
-      todo.map((task, index) => <li key={index}>{task.title}<button onClick={() => deleteTodo(index)}>delete</button></li>)
+      todo.map((task, index) =>
+        <li key={task.title} style={{ textDecoration: task.completed && 'line-through' }}>
+          {task.title}
+          <button onClick={() => completeTodo(index)}>done</button>
+          <button onClick={() => deleteTodo(index)}>delete</button>
+        </li>)
     }
   </ul>;
 
@@ -57,7 +53,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     addTodo: (...params) => dispatch(addTodo(...params)),
-    deleteTodo: (...params) => dispatch(deleteTodo(...params))
+    completeTodo: (...params) => dispatch(completeTodo(...params)),
+    deleteTodo: (...params) => dispatch(deleteTodo(...params)),
   };
 }
 
