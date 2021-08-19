@@ -1,10 +1,9 @@
 import { ADD_TODO, COMPLETE_TODO, DELETE_TODO } from '../actions/todo';
 
-let initialState;
+let initialState =[];
 try {
   initialState = JSON.parse(window.sessionStorage.getItem('reduxStorage')).todo;
 } catch(ex) {
-  initialState = []
   console.log(ex);
 }
 
@@ -19,19 +18,15 @@ export function todo(state = initialState, action) {
         },
       ];
     case COMPLETE_TODO:
-      return [
-        ...state.slice(0, action.index),
-        Object.assign({}, state[action.index],
-        {
-          completed: true
-        }),
-        ...state.slice(action.index + 1)
-      ];
+      return state.map((task, index) => {
+        if (index === action.index) {
+          return { ...task, completed: true}
+        } else {
+          return task;
+        }
+      });
     case DELETE_TODO:
-      return [
-        ...state.slice(0, action.index),
-        ...state.slice(action.index + 1)
-     ];
+      return state.filter((task, index) => index !== action.index);
     default:
       return state;
   }
