@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { addTodo, completeTodo, deleteTodo } from '../actions/todo';
+import { addTodo, completeTodo, deleteTodo } from '../actions/todoApi';
 import { setFilter } from '../actions/filter';
 
-const TodoWithRedux = ({todo, addTodo, deleteTodo, completeTodo, title}) => {
+const TodoWithReduxThunk = ({todo, addTodo, deleteTodo, completeTodo, title, inProgress, errorMessage}) => {
   const [value, changeValue] = useState('');
 
   function handleAddTodo() {
@@ -14,6 +14,8 @@ const TodoWithRedux = ({todo, addTodo, deleteTodo, completeTodo, title}) => {
   return (
     <>
       <Title title={title}/>
+      <div>{inProgress ? 'Request in process...' : ''}</div>
+      <div>{errorMessage}</div>
       <TodoList todo={todo} deleteTodo={deleteTodo} completeTodo={completeTodo}/>
       <Input changeValue={changeValue} value={value}/>
       <Button addTodo={handleAddTodo}/>
@@ -46,7 +48,9 @@ const Button = ({ addTodo }) => <button onClick={addTodo}>add</button>;
 
 function mapStateToProps(state) {
   return {
-    todo: state.todo,
+    todo: state.todoApi.todo,
+    inProgress: state.todoApi.inProgress,
+    errorMessage: state.todoApi.errorMessage,
   };
 }
 
@@ -58,4 +62,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoWithRedux);
+export default connect(mapStateToProps, mapDispatchToProps)(TodoWithReduxThunk);

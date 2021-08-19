@@ -5,13 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import { reducers } from './reducers';
 import { log } from './middlewares/log';
 import { storage } from './middlewares/storage';
 
 const store = createStore(reducers, {},  compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f,
-  applyMiddleware(log, storage)
+  applyMiddleware(log, storage, thunk)
 ));
 
 ReactDOM.render(
