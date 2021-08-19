@@ -40,7 +40,7 @@ app.get('/api/todos/:id', function(req, res) {
     req.session.todos = [];
   }
   for (var i = 0; i < req.session.todos; i++) {
-    if (req.session.todos[i].uuid === props.id) {
+    if (req.session.todos[i].id === props.id) {
       return res.json(req.session.todos[i]);
     }
   }
@@ -60,23 +60,29 @@ app.post('/api/todos', function(req, res) {
   res.status(201).json(req.body);
 });
 
-app.put('/api/todos/:id', function(req, res) {
+app.patch('/api/todos/:id', function(req, res) {
+  console.log(req.params, req.session.todos)
   if (!req.session.todos) {
     req.session.todos = [];
   }
-  for (var i = 0; i < req.session.todos; i++) {
-    if (req.session.todos[i].uuid === props.id) {
-      req.session.todos[i] = req.body;
+  for (var i = 0; i < req.session.todos.length; i++) {
+    console.log(req.session.todos[i].id, req.params.id)
+    if (req.session.todos[i].id === req.params.id) {
+      req.session.todos[i] = { ...req.session.todos[i], ...req.body };
+      console.log(req.session.todos)
+      return res.json(req.session.todos[i]);
     }
   }
-  res.json(req.body);
+  res.status(404).json();
 });
 
 app.delete('/api/todos/:id', function(req, res) {
+  console.log(req.session.todos)
   if (!req.session.todos) {
     req.session.todos = [];
   }
-  req.session.todos = req.session.todos.filter(item => item.id !== props.id)
+  req.session.todos = req.session.todos.filter(item => item.id !== req.params.id)
+  console.log(req.session.todos)
   res.status(204).json();
 });
 

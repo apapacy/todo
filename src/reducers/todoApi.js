@@ -50,6 +50,7 @@ export function todoApi(state = initialState, action) {
       todo = [
         ...state.todo,
         {
+          id: action.id,
           title: action.title,
           completed: false,
         },
@@ -71,8 +72,8 @@ export function todoApi(state = initialState, action) {
         inProgress: true,
       };
     case COMPLETE_TODO_SUCCESS:
-      todo = state.map((task, index) => {
-        if (index === action.index) {
+      todo = state.todo.map((task) => {
+        if (task.id === action.id) {
           return { ...task, completed: true}
         } else {
           return task;
@@ -95,7 +96,12 @@ export function todoApi(state = initialState, action) {
         inProgress: true,
       };
     case DELETE_TODO_SUCCESS:
-      todo = state.filter((task, index) => index !== action.index);
+      todo = state.todo.filter((task) => task.id !== action.id);
+      return {
+        inProgress: false,
+        errorMessage: '',
+        todo,
+      };
     case DELETE_TODO_FAILURE:
       return {
         ...state,

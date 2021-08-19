@@ -33,8 +33,8 @@ const TodoList = ({ todo, deleteTodo, completeTodo }) =>
       todo.map((task, index) =>
         <li key={task.id} style={{ textDecoration: task.completed && 'line-through' }}>
           {task.title}
-          <button onClick={() => completeTodo(index)}>done</button>
-          <button onClick={() => deleteTodo(index)}>delete</button>
+          <button onClick={() => completeTodo(task.id)}>done</button>
+          <button onClick={() => deleteTodo(task.id)}>delete</button>
         </li>)
     }
   </ul>;
