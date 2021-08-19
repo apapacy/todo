@@ -5,6 +5,7 @@ import { TodoStateLess } from './components/TodoStateLess';
 import { TodoWithProps } from './components/TodoWithProps'
 import TodoWithRedux from './components/TodoWithRedux';
 import TodoWithReduxThunk from './components/TodoWithReduxThunk';
+import TodoWithReduxSaga from './components/TodoWithReduxSaga';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <TodoWithProps/>
       <TodoWithRedux title="To Do With Redux"/>
       <TodoWithReduxThunk title="To Do With Redux Thunk"/>
+      <TodoWithReduxThunk title="To Do With Redux Saga"/>
     </>
   );
 }
