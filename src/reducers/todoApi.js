@@ -21,7 +21,26 @@ let initialState = {
 
 export function todoApi(state = initialState, action) {
   let todo;
+
   switch (action.type) {
+    case LIST_TODO_START:
+      return {
+        ...state,
+        inProgress: true,
+      };
+    case LIST_TODO_SUCCESS:
+      todo = [...action.todo];
+      return {
+        inProgress: false,
+        errorMessage: '',
+        todo,
+      };
+    case LIST_TODO_FAILURE:
+      return {
+        ...state,
+        inProgress: false,
+        errorMessage: 'add todo error',
+      };
     case ADD_TODO_START:
       return {
         ...state,

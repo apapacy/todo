@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { addTodo, completeTodo, deleteTodo } from '../actions/todoApi';
+import { addTodo, completeTodo, deleteTodo, listTodo } from '../actions/todoApi';
 import { setFilter } from '../actions/filter';
 
-const TodoWithReduxThunk = ({todo, addTodo, deleteTodo, completeTodo, title, inProgress, errorMessage}) => {
+const TodoWithReduxThunk = ({todo, addTodo, deleteTodo, completeTodo, listTodo, title, inProgress, errorMessage}) => {
   const [value, changeValue] = useState('');
+
+  useEffect(() => listTodo(), []);
 
   function handleAddTodo() {
     addTodo(value);
@@ -29,7 +31,7 @@ const TodoList = ({ todo, deleteTodo, completeTodo }) =>
   <ul>
     {
       todo.map((task, index) =>
-        <li key={task.title} style={{ textDecoration: task.completed && 'line-through' }}>
+        <li key={task.id} style={{ textDecoration: task.completed && 'line-through' }}>
           {task.title}
           <button onClick={() => completeTodo(index)}>done</button>
           <button onClick={() => deleteTodo(index)}>delete</button>
@@ -56,6 +58,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    listTodo: (...params) => dispatch(listTodo(...params)),
     addTodo: (...params) => dispatch(addTodo(...params)),
     completeTodo: (...params) => dispatch(completeTodo(...params)),
     deleteTodo: (...params) => dispatch(deleteTodo(...params)),

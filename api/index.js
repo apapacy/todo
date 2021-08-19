@@ -3,17 +3,19 @@ var cors = require('cors')
 var cookieSession = require('cookie-session')
 const { v4: uuidv4 } = require('uuid');
 var bodyParser = require('body-parser');
-const { TodoWithProps } = require('../src/components/TodoWithProps');
 
 var app = express()
- 
-app.use(cors());
+
+app.use(cors({
+  credentials: true,
+  origin: (origin, next) => next(null, origin)
+}));
 app.set('trust proxy', 1);
 app.use(cookieSession({
   name: 'session',
   keys: ['key1', 'key2']
 }))
- 
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
@@ -24,12 +26,16 @@ app.use(function (req, res, next) {
   next();
 })
 
-app.get('/todos', function(req, res) {
-  req.session.todos.push({a:1})
+app.get('/api/todos', function(req, res) {
+  console.log(req.session.todos)
+  if (!req.session.todos) {
+    req.session.todos = [];
+  }
   res.json(req.session.todos);
 });
 
-app.get('/todos/:id', function(req, res) {
+app.get('/api/todos/:id', function(req, res) {
+  console.log(req.session.todos)
   if (!req.session.todos) {
     req.session.todos = [];
   }
@@ -41,7 +47,8 @@ app.get('/todos/:id', function(req, res) {
   res.status(404).json();
 });
 
-app.post('/todos', function(req, res) {
+app.post('/api/todos', function(req, res) {
+  console.log(req.session.todos)
   if (!req.session.todos) {
     req.session.todos = [];
   }
@@ -49,10 +56,11 @@ app.post('/todos', function(req, res) {
     req.body.id = uuidv4();
   }
   req.session.todos.push(req.body);
+  console.log(req.session.todos)
   res.status(201).json(req.body);
 });
 
-app.put('/todos/:id', function(req, res) {
+app.put('/api/todos/:id', function(req, res) {
   if (!req.session.todos) {
     req.session.todos = [];
   }
@@ -64,7 +72,7 @@ app.put('/todos/:id', function(req, res) {
   res.json(req.body);
 });
 
-app.delete('/todos/:id', function(req, res) {
+app.delete('/api/todos/:id', function(req, res) {
   if (!req.session.todos) {
     req.session.todos = [];
   }
@@ -73,5 +81,5 @@ app.delete('/todos/:id', function(req, res) {
 });
 
 app.listen(5001, function () {
-  console.log('CORS-enabled web server listening on port 80')
+  console.log('CORS-enabled web server listening on port 5001')
 })
