@@ -1,3 +1,5 @@
+export const ADD_TODO_PUBLISH = 'ADD_TODO_PUBLISH';
+
 export const ADD_TODO_START = 'ADD_TODO_START';
 export const ADD_TODO_SUCCESS = 'ADD_TODO_SUCCESS';
 export const ADD_TODO_FAILURE = 'ADD_TODO_FAILURE';
@@ -13,9 +15,9 @@ export const LIST_TODO_FAILURE = 'LIST_TODO_FAILURE';
 
 const apiHost = 'http://localhost:5001'
 
-export function listTodo(title) {
+export function listTodo() {
   return function(dispatch) {
-    dispatch({ type: LIST_TODO_START, title });
+    dispatch({ type: LIST_TODO_START });
     fetch(`${apiHost}/api/todos`, {
       credentials: 'include',
       method: 'GET',
@@ -34,10 +36,14 @@ export function listTodo(title) {
   }
 }
 
+export function addTodoStart(title) {
+  return { type: ADD_TODO_PUBLISH, title, completed: false };
+}
+
 export function addTodo(title) {
   return function(dispatch) {
-    dispatch({ type: ADD_TODO_START, title });
-    // window.setTimeout(() => dispatch({ type: ADD_TODO_FAILURE, title}), 5000);
+    dispatch({ type: ADD_TODO_START, title, completed: false });
+    // window.setTimeout(() => dispatch({ t,ype: ADD_TODO_FAILURE, title}), 5000);
     fetch(`${apiHost}/api/todos`, {
       credentials: 'include',
       method: 'POST',

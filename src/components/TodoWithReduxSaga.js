@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { addTodoStart, completeTodo, deleteTodo, listTodo } from '../actions/todoApiSaga';
+import { addTodoStart, completeTodo, deleteTodo, listTodo } from '../actions/todoApi';
 import { setFilter } from '../actions/filter';
 
 const TodoWithReduxSaga = ({todo, addTodo, deleteTodo, completeTodo, listTodo, title, inProgress, errorMessage}) => {
@@ -31,8 +31,8 @@ const TodoList = ({ todo, deleteTodo, completeTodo }) =>
   <ul>
     {
       todo.map((task, index) =>
-        <li key={task.id} style={{ textDecoration: task.completed && 'line-through' }}>
-          {task.title}
+        <li key={task.id} style={{ textDecoration: task.completed && 'line-through', color: task.completed && '#cccccc' }}>
+          { task.title }
           <button onClick={() => completeTodo(task.id)}>done</button>
           <button onClick={() => deleteTodo(task.id)}>delete</button>
         </li>)

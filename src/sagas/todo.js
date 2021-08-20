@@ -3,6 +3,7 @@ import {
   LIST_TODO_START,
   LIST_TODO_SUCCESS,
   LIST_TODO_FAILURE,
+  ADD_TODO_PUBLISH,
   ADD_TODO_START,
   ADD_TODO_SUCCESS,
   ADD_TODO_FAILURE,
@@ -16,7 +17,7 @@ import {
 
 const apiHost = 'http://localhost:5001';
 
-const delay = (ms) => new Promise(res => setTimeout(res, ms))
+const delay = (timeout) => new Promise(resolve => setTimeout(resolve, timeout))
 
 export function* incrementAsync() {
   yield delay(1000)
@@ -25,6 +26,7 @@ export function* incrementAsync() {
 
 function* addTodo({title}) {
   try {
+    yield delay(5000);
     const response = yield fetch(`${apiHost}/api/todos`, {
       credentials: 'include',
       method: 'POST',
@@ -46,7 +48,7 @@ function* addTodo({title}) {
 }
 
 export function* watchAddTodo() {
-  yield takeEvery('ADD_TODO_START', addTodo)
+  yield takeEvery('ADD_TODO_PUBLISH', addTodo)
 }
 
 export function* helloSaga() {

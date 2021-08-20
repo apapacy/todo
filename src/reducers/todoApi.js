@@ -2,6 +2,7 @@ import {
   LIST_TODO_START,
   LIST_TODO_SUCCESS,
   LIST_TODO_FAILURE,
+  ADD_TODO_PUBLISH,
   ADD_TODO_START,
   ADD_TODO_SUCCESS,
   ADD_TODO_FAILURE,
@@ -42,6 +43,7 @@ export function todoApi(state = initialState, action) {
         errorMessage: 'add todo error',
       };
     case ADD_TODO_START:
+    case ADD_TODO_PUBLISH:
       return {
         ...state,
         inProgress: true,
@@ -52,7 +54,7 @@ export function todoApi(state = initialState, action) {
         {
           id: action.id,
           title: action.title,
-          completed: false,
+          completed: action.completed,
         },
       ];
       return {
