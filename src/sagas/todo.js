@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects'
+import { put, takeEvery,call } from 'redux-saga/effects'
 import {
   LIST_TODO_START,
   LIST_TODO_SUCCESS,
@@ -27,14 +27,14 @@ export function* incrementAsync() {
 function* addTodo({title}) {
   try {
     yield delay(5000);
-    const response = yield fetch(`${apiHost}/api/todos`, {
+    const response = yield call(fetch, `${apiHost}/api/todos`, {
       credentials: 'include',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify({ title })
-    })
+    });
     if (response.ok) {
       const responseJson = yield response.json()
       yield put({ ...responseJson, type: ADD_TODO_SUCCESS })
