@@ -18,7 +18,8 @@ import {
 
 const delay = (ms) => new Promise(res => setTimeout(res, ms))
 
-export function* incrementAsync() {
+export function* incrementAsync(...props) {
+  console.log(props);
   yield delay(1000)
   yield put({ type: 'INCREMENT' })
 }

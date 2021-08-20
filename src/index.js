@@ -7,7 +7,7 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga'
-import { helloSaga, watchAddTodo } from './sagas/hello'
+import { watchAddTodo } from './sagas/todo'
 import { reducers } from './reducers';
 import { log } from './middlewares/log';
 import { storage } from './middlewares/storage';
@@ -19,7 +19,7 @@ const store = createStore(reducers, {},  compose(
   applyMiddleware(log, storage, thunk, sagaMiddleware)
 ));
 
-sagaMiddleware.run(watchAddTodo)
+sagaMiddleware.run(watchAddTodo);
 
 ReactDOM.render(
   <Provider store={store}>

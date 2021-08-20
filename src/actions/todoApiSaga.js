@@ -11,7 +11,7 @@ export const LIST_TODO_START = 'LIST_TODO_START';
 export const LIST_TODO_SUCCESS = 'LIST_TODO_SUCCESS';
 export const LIST_TODO_FAILURE = 'LIST_TODO_FAILURE';
 
-const apiHost = 'http://localhost:5001'
+const apiHost = 'http://localhost:5001';
 
 export function listTodo(title) {
   return function(dispatch) {
@@ -32,6 +32,10 @@ export function listTodo(title) {
         dispatch({ type: LIST_TODO_FAILURE })
       });
   }
+}
+
+export function addTodoStart(title) {
+  return { type: ADD_TODO_START, title };
 }
 
 export function addTodo(title) {

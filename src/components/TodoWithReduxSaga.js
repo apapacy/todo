@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { addTodo, completeTodo, deleteTodo, listTodo } from '../actions/todoApiSaga';
+import { addTodoStart, completeTodo, deleteTodo, listTodo } from '../actions/todoApiSaga';
 import { setFilter } from '../actions/filter';
 
 const TodoWithReduxSaga = ({todo, addTodo, deleteTodo, completeTodo, listTodo, title, inProgress, errorMessage}) => {
@@ -59,7 +59,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     listTodo: (...params) => dispatch(listTodo(...params)),
-    addTodo: (...params) => dispatch(addTodo(...params)),
+    addTodo: (...params) => dispatch(addTodoStart(...params)),
     completeTodo: (...params) => dispatch(completeTodo(...params)),
     deleteTodo: (...params) => dispatch(deleteTodo(...params)),
   };
