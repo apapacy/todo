@@ -13,7 +13,7 @@ export const LIST_TODO_START = 'LIST_TODO_START';
 export const LIST_TODO_SUCCESS = 'LIST_TODO_SUCCESS';
 export const LIST_TODO_FAILURE = 'LIST_TODO_FAILURE';
 
-const apiHost = 'http://localhost:5001'
+const apiHost = 'http://alpha.branderstudio.com:5001'
 
 export function listTodo() {
   return function(dispatch) {

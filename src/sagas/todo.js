@@ -15,7 +15,8 @@ import {
   DELETE_TODO_FAILURE,
 } from '../actions/todoApi';
 
-const apiHost = 'http://localhost:5001';
+const apiHost = 'http://alpha.branderstudio.com:5001';
+
 
 const delay = (timeout) => new Promise(resolve => setTimeout(resolve, timeout))
 
