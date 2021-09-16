@@ -1,3 +1,4 @@
+import  './Component.sass';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { addTodoStart, completeTodo, deleteTodo, listTodo } from '../actions/todoApi';
