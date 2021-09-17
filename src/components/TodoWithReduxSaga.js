@@ -1,12 +1,13 @@
-import  './Component.sass';
+import styles from './Component.module.scss';
+import classNames from 'classnames';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { addTodoStart, completeTodo, deleteTodo, listTodo } from '../actions/todoApi';
 import { setFilter } from '../actions/filter';
+console.log(styles)
 
 const TodoWithReduxSaga = ({todo, addTodo, deleteTodo, completeTodo, listTodo, title, inProgress, errorMessage}) => {
   const [value, changeValue] = useState('');
-
   useEffect(() => listTodo(), []);
 
   function handleAddTodo() {
@@ -16,7 +17,7 @@ const TodoWithReduxSaga = ({todo, addTodo, deleteTodo, completeTodo, listTodo, t
 
   return (
     <>
-      <Title title={title}/>
+      <Title title={title} count={todo?.length}/>
       <div>{inProgress ? 'Request in process...' : ''}</div>
       <div>{errorMessage}</div>
       <TodoList todo={todo} deleteTodo={deleteTodo} completeTodo={completeTodo}/>
@@ -26,7 +27,7 @@ const TodoWithReduxSaga = ({todo, addTodo, deleteTodo, completeTodo, listTodo, t
   );
 }
 
-const Title = ({ title }) => <h3>{ title }</h3>;
+const Title = ({ title, count }) => <h3 className={classNames({[styles.orange]: count})} style={{backgroundColor: 'yellow'}} >{ title }</h3>;
 
 const TodoList = ({ todo, deleteTodo, completeTodo }) =>
   <ul>
